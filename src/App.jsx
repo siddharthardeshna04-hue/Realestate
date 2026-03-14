@@ -18,7 +18,7 @@ const App = () => {
       <Projects/>
       <Testimonials/>
       <Contact/>
-      <Footer/>
+      <Footer setShowSignup={setShowSignup} />
       
       {showSignup && <Signup setShowSignup={setShowSignup} />}
     </div>

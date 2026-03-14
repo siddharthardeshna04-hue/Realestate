@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets";
 
-const Footer = () => {
+// 1. We added setShowSignup as a prop here so the footer can open the modal!
+const Footer = ({ setShowSignup }) => {
   const [result, setResult] = useState("");
 
   const onSubmit = async (event) => {
@@ -11,9 +12,7 @@ const Footer = () => {
     const formData = new FormData(event.target);
 
     // Paste your Web3Forms Access Key right here!
-    formData.append("access_key", "bbd149f8-a9d3-4cdd-ba23-c87dbacc09b4");
-    
-    // This tells you in the email subject line that it's a newsletter signup!
+    formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
     formData.append("subject", "New Newsletter Subscriber!");
 
     const response = await fetch("https://api.web3forms.com/submit", {
@@ -25,7 +24,7 @@ const Footer = () => {
 
     if (data.success) {
       setResult("Subscribed Successfully!");
-      event.target.reset(); // Clears the input box
+      event.target.reset();
     } else {
       console.log("Error", data);
       setResult(data.message);
@@ -51,22 +50,34 @@ const Footer = () => {
           <ul className="flex flex-col gap-2 text-gray-400 text-sm">
             <li><a href="#Header" className="hover:text-white transition-colors">Home</a></li>
             <li><a href="#About" className="hover:text-white transition-colors">About us</a></li>
+            
+            {/* 2. Added Projects Link */}
+            <li><a href="#Projects" className="hover:text-white transition-colors">Projects</a></li>
+            
             <li><a href="#Contact" className="hover:text-white transition-colors">Contact us</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Privacy policy</a></li>
+            
+            {/* 3. Swapped Privacy Policy for Sign Up modal trigger */}
+            <li>
+              <button 
+                onClick={() => setShowSignup(true)} 
+                className="hover:text-white transition-colors cursor-pointer text-left"
+              >
+                Sign up
+              </button>
+            </li>
           </ul>
         </div>
 
-        {/* Right Side - Newsletter Setup with Web3Forms */}
+        {/* Right Side - Newsletter Setup */}
         <div className="w-full md:w-1/3">
           <h3 className="text-white text-lg font-bold mb-4">Subscribe to our newsletter</h3>
           <p className="text-gray-400 text-sm mb-4">The latest news, articles, and resources, sent to your inbox weekly.</p>
           
-          {/* Form added here! */}
           <form onSubmit={onSubmit}>
             <div className="flex gap-2">
               <input 
                 type="email" 
-                name="email" // Web3Forms needs this to know it's an email!
+                name="email" 
                 placeholder="Enter your email" 
                 className="p-2 rounded bg-gray-800 text-gray-400 border border-gray-700 focus:outline-none focus:border-blue-500 w-full"
                 required
@@ -75,7 +86,6 @@ const Footer = () => {
                 Subscribe
               </button>
             </div>
-            {/* Shows "Subscribing..." or "Success!" under the box */}
             <div className="text-gray-400 text-sm mt-2 h-4">
               {result}
             </div>
