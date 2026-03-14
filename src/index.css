@@ -1,0 +1,33 @@
+/* Import the 'Outfit' font as used in the tutorial */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* This connects the Google Font to a Tailwind class */
+    --font-outfit: "Outfit", sans-serif;
+  }
+}
+
+:root {
+  font-family: "Outfit", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* This is the key part for Vite projects */
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
