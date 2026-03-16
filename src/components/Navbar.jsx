@@ -1,44 +1,73 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { assets } from "../assets/assets";
 
 const Navbar = ({ setShowSignup }) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  useEffect(() => {
-    if (showMobileMenu) {
-      document.body.style.overflow = "hidden";
-    }
-    else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto"; 
-    }
-  }, [showMobileMenu]);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   return (
-    <div className="absolute top-0 left-0 w-full z-10 bg-transparent">
+    <div
+      className={`w-full z-50 ${isHome ? "absolute top-0 left-0 bg-transparent" : "relative bg-gray-800"}`}
+    >
       <div className="container mx-auto flex items-center justify-between py-4 px-6 md:px-20 lg:px-32">
-        {/* Logo */}
-        <img src={assets.logo} alt="logo" className="w-32 cursor-pointer" />
+        <Link to="/">
+          <img src={assets.logo} alt="logo" className="w-32 cursor-pointer" />
+        </Link>
 
-        {/* Navigation Links */}
+        {/* Desktop Menu - Contact link added! */}
         <ul className="hidden md:flex gap-10 text-white font-medium">
-          <li><a href="#Header" className="cursor-pointer hover:text-gray-400">Home</a></li>
-          <li><a href="#About" className="cursor-pointer hover:text-gray-400">About</a></li>
-          <li><a href="#Projects" className="cursor-pointer hover:text-gray-400">Projects</a></li>
-          <li><a href="#Testimonials" className="cursor-pointer hover:text-gray-400">Testimonials</a></li>
+          <li>
+            <Link
+              to="/"
+              className="cursor-pointer hover:text-blue-400 transition"
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/about"
+              className="cursor-pointer hover:text-blue-400 transition"
+            >
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/projects"
+              className="cursor-pointer hover:text-blue-400 transition"
+            >
+              Projects
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/testimonials"
+              className="cursor-pointer hover:text-blue-400 transition"
+            >
+              Testimonials
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/contact"
+              className="cursor-pointer hover:text-blue-400 transition"
+            >
+              Contact
+            </Link>
+          </li>
         </ul>
 
-        {/* Sign Up Button */}
-        <button 
-          onClick={() => setShowSignup(true)} 
-          className="hidden md:block bg-white text-black px-8 py-2 rounded-full font-sans cursor-pointer hover:bg-gray-100 transition"
+        <button
+          onClick={() => setShowSignup(true)}
+          className="hidden md:block bg-blue-600 text-white px-8 py-2 rounded-full font-sans cursor-pointer hover:bg-blue-700 transition"
         >
           Sign up
         </button>
 
-        {/* Mobile Hamburger Icon */}
         <img
           onClick={() => setShowMobileMenu(true)}
           src={assets.menu_icon}
@@ -49,25 +78,67 @@ const Navbar = ({ setShowSignup }) => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden absolute top-full left-0 w-full bg-gray-800 text-white overflow-hidden transition-all duration-300 ease-in-out ${
+        className={`md:hidden absolute top-0 left-0 w-full h-screen bg-gray-800 text-white overflow-hidden transition-all duration-300 ease-in-out z-50 ${
           showMobileMenu
-            ? "max-h-96 py-4 px-6 opacity-100"
-            : "max-h-0 py-0 px-0 opacity-0"
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="flex justify-end">
+        <div className="flex justify-end p-6">
           <img
             onClick={() => setShowMobileMenu(false)}
             src={assets.cross_icon}
             alt="Close Menu"
-            className="w-8 cursor-pointer mb-4 bg-white p-2 rounded-full"
+            className="w-8 cursor-pointer bg-white p-2 rounded-full"
           />
         </div>
-        <ul className="flex flex-col gap-4 pb-4">
-          <li><a onClick={() => setShowMobileMenu(false)} href="#Header" className="cursor-pointer hover:text-gray-400 block">Home</a></li>
-          <li><a onClick={() => setShowMobileMenu(false)} href="#About" className="cursor-pointer hover:text-gray-400 block">About</a></li>
-          <li><a onClick={() => setShowMobileMenu(false)} href="#Projects" className="cursor-pointer hover:text-gray-400 block">Projects</a></li>
-          <li><a onClick={() => setShowMobileMenu(false)} href="#Testimonials" className="cursor-pointer hover:text-gray-400 block">Testimonials</a></li>
+        {/* Mobile Menu Links - Contact link added! */}
+        <ul className="flex flex-col items-center gap-6 mt-10 text-xl font-medium">
+          <li>
+            <Link
+              onClick={() => setShowMobileMenu(false)}
+              to="/"
+              className="hover:text-blue-400"
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={() => setShowMobileMenu(false)}
+              to="/about"
+              className="hover:text-blue-400"
+            >
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={() => setShowMobileMenu(false)}
+              to="/projects"
+              className="hover:text-blue-400"
+            >
+              Projects
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={() => setShowMobileMenu(false)}
+              to="/testimonials"
+              className="hover:text-blue-400"
+            >
+              Testimonials
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={() => setShowMobileMenu(false)}
+              to="/contact"
+              className="hover:text-blue-400"
+            >
+              Contact
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

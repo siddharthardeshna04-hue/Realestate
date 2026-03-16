@@ -1,22 +1,20 @@
-import Navbar from "./Navbar";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Header = ({ setShowSignup }) => {
+const Header = () => {
   return (
     <div
-      className="min-h-screen mb-4 flex items-center bg-cover bg-center w-full overflow-hidden relative"
+      // Added justify-center so it flexes directly to the middle of the screen!
+      className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center w-full overflow-hidden relative"
       style={{ backgroundImage: "url('/header_img.png')" }}
-      id="Header"
     >
-      {/* Navbar is back inside the Header where it belongs! */}
-      <Navbar setShowSignup={setShowSignup} />
-      
-      <div className="container text-center mx-auto py-4 px-6 md:px-20 lg:px-32 text-white">
-          <h2 className="text-5xl sm:text-6xl md:text-[82px] inline-block max-w-3xl font-semibold pt-20">
+      <div className="container text-center mx-auto px-6 md:px-20 lg:px-32 text-white mt-20">
+          <h2 className="text-5xl sm:text-6xl md:text-[82px] inline-block max-w-3xl font-semibold">
             Explore homes that fit your dreams
           </h2>
           <div className="space-x-6 mt-16">
-            <a href="#Projects" className="border border-white px-8 py-3 rounded hover:bg-white hover:text-black transition">Projects</a>
-            <a href="#Contact" className="bg-blue-500 px-8 py-3 rounded hover:bg-blue-600 transition">Contact Us</a>
+            <Link to="/projects" className="border border-white px-8 py-3 rounded hover:bg-white hover:text-black transition">Projects</Link>
+            <Link to="/contact" className="bg-blue-500 px-8 py-3 rounded hover:bg-blue-600 transition">Contact Us</Link>
           </div>
       </div>
     </div>
