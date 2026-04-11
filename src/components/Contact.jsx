@@ -9,22 +9,50 @@ const Contact = () => {
     
     const formData = new FormData(event.target);
 
-    // Paste your Web3Forms Access Key right here!
-    formData.append("access_key", "bbd149f8-a9d3-4cdd-ba23-c87dbacc09b4");
+    // --- WEB3FORMS CODE COMMENTED OUT ---
+    // formData.append("access_key", "bbd149f8-a9d3-4cdd-ba23-c87dbacc09b4");
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    });
+    // const response = await fetch("https://api.web3forms.com/submit", {
+    //   method: "POST",
+    //   body: formData
+    // });
 
-    const data = await response.json();
+    // const data = await response.json();
 
-    if (data.success) {
-      setResult("Form Submitted Successfully!");
-      event.target.reset(); // This clears the form boxes after sending
-    } else {
-      console.log("Error", data);
-      setResult(data.message);
+    // if (data.success) {
+    //   setResult("Form Submitted Successfully!");
+    //   event.target.reset(); 
+    // } else {
+    //   console.log("Error", data);
+    //   setResult(data.message);
+    // }
+    // ------------------------------------
+
+    // Temporarily logging the data to the console so you can see it works
+    const formValues = Object.fromEntries(formData.entries());
+    console.log("Form Data to send to Node.js:", formValues);
+    
+    // We send it to our new Node.js server!
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formValues)
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setResult(data.message); // Shows the success message from Node
+        event.target.reset();    // Clears the form
+      } else {
+        setResult("Something went wrong.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setResult("Failed to connect to the server.");
     }
   };
 
@@ -40,7 +68,6 @@ const Contact = () => {
         Ready to Make a Move? Let's Build Your Future Together
       </p>
 
-      {/* Added the onSubmit function to the form */}
       <form onSubmit={onSubmit} className="max-w-2xl mx-auto text-gray-600 pt-8">
         <div className="flex flex-wrap">
           <div className="w-full md:w-1/2 text-left md:pr-2">
@@ -83,7 +110,6 @@ const Contact = () => {
           Send Message
         </button>
 
-        {/* Displays the "Sending..." or "Success!" message under the button */}
         <div className="text-center text-gray-700 font-medium">
           {result}
         </div>
