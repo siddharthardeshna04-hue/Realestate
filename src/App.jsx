@@ -9,6 +9,9 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Signup from './components/Signup';
 import Footer from './components/Footer';
+// 1. IMPORT YOUR NEW ADMIN PANEL HERE
+import AdminPanel from './components/Adminpanel'; 
+
 
 const App = () => {
   const [showSignup, setShowSignup] = useState(false);
@@ -30,6 +33,9 @@ const App = () => {
             <Route path="/projects" element={<Projects />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
+            
+            {/* 2. ADD THE ADMIN ROUTE HERE */}
+            <Route path="/admin" element={<AdminPanel />} />
           </Routes>
         </div>
 
