@@ -74,6 +74,9 @@ const AdminPanel = () => {
                     <th className="py-4 px-6 font-semibold text-sm uppercase">
                       Inquiry
                     </th>
+                    <th className="py-4 px-6 font-semibold text-sm uppercase">
+                      Status
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -86,6 +89,18 @@ const AdminPanel = () => {
                         {msg.name}
                       </td>
                       <td className="py-4 px-6 text-blue-600">{msg.email}</td>
+                      {/* NEW STATUS BADGE */}
+                      <td className="py-4 px-6">
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-bold ${
+                            msg.userType === "Registered"
+                              ? "bg-green-100 text-green-700 border border-green-300"
+                              : "bg-gray-100 text-gray-600 border border-gray-300"
+                          }`}
+                        >
+                          {msg.userType || "Guest"}
+                        </span>
+                      </td>
                       <td className="py-4 px-6 text-gray-700">{msg.message}</td>
                     </tr>
                   ))}
